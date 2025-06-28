@@ -39,6 +39,44 @@ let fetch= async (req,res)=>{
 }
 
 
+let update= async (req,res)=>{
+    try {
+        const id= req.params.id;
+        const findUser= await user.findOne({_id:id})
+        if(!findUser){
+              res.status(404).json({message:"this id is not found"})
+        }
+        else{
+            const update= await user.findByIdAndUpdate(id,req.body,{new:true})
+              res.status(200).json(update)
+
+        }
+      
+    } catch (error) {
+        res.send(500).json({error:"error"})
+        
+    }
+}
+
+let deletes = async (req,res)=>{
+    try {
+        const id= req.params.id;
+        const findUser= await user.findById(id)
+        if(!findUser){
+              res.status(404).json({message:"this id is not found"})
+        }
+        else{
+            const deletes= await user.findOneAndDelete(id,req.body,{new:true})
+              res.status(200).json(deletes)
+
+        }
+      
+    } catch (error) {
+        res.send(500).json({error:"error"})
+        
+    }
+}
+
 
 let controller= async (req,res)=>{
 try {
@@ -50,4 +88,4 @@ try {
 }
 }
 
-module.exports={create,fetch}
+module.exports={create,fetch,controller,update,deletes}

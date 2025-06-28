@@ -1,4 +1,3 @@
-//index.js
 
 let express= require("express")
 let appp=express();
